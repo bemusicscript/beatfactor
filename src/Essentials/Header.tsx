@@ -1,4 +1,6 @@
 import React from "react";
+import { Navbar } from "./Navbar";
+
 import "./Header.scss";
 
 interface HeaderProps {
@@ -32,17 +34,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
     return (
       <header>
         <h1>{"KBS"}</h1>
-        <nav className="nav-bar">
-          <div className="home-box">
-            <a href="#">Home</a>
-          </div>
-          <div className="about-box">
-            <a href="#">About</a>
-          </div>
-          <div className="ranking-box">
-            <a href="#">Ranking</a>
-          </div>
-        </nav>
+        <Navbar pages={["Home", "About", "Ranking"]}/>
         <div className="color-toggle-box" onClick={this.onColorToggle}>
           <button
             className="color-toggle"
