@@ -25,3 +25,10 @@ body.light-mode {
   --color-text: #000;
   --color-text-secondary: #999;
 }
+
+#root .content-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
