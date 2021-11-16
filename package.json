@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "SieR-VR <nwh63@naver.com>",
-  "homepage": "https://sier-vr.github.io/kbs",
+  "homepage": "https://sier-vr.github.io/kbs/",
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack",
