@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar } from "./Navbar";
 
-import "./Header.scss";
+// import "./Header.scss";
 
 interface HeaderProps {
   isDefaultDark: boolean;
@@ -9,10 +9,7 @@ interface HeaderProps {
 
 interface HeaderState {
   isDark: boolean;
-}
-
-const ani_darkToLight = "dark-to-light";
-const ani_lightToDark = "dark-to-light 0.5s ease-in-out forwards";  
+}  
 
 export default class Header extends React.Component<HeaderProps, HeaderState> {
   private readonly onColorToggle = () => {

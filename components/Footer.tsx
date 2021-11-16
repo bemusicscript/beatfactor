@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar } from "./Navbar";
 
-import "./Footer.scss";
+// import "./Footer.scss";
 
 export default class Footer extends React.Component {
   render() {
