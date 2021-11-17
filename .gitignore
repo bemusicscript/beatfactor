@@ -7,3 +7,6 @@ dist
 
 # Next.js
 .next
+
+# Sqlite
+db
