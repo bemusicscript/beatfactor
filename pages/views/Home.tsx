@@ -1,6 +1,5 @@
 import React from "react";
 import { NextPage, NextPageContext } from "next";
-// import "./Home.scss";
 
 const Home: NextPage = () => {
   return (

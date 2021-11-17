@@ -1,8 +1,6 @@
 import React from "react";
 import { Navbar } from "./Navbar";
 
-// import "./Header.scss";
-
 interface HeaderProps {
   isDefaultDark: boolean;
 }

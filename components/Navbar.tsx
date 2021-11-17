@@ -1,5 +1,4 @@
 import React from "react";
-// import "./Navbar.scss";
 
 export function Navbar({ pages }: { pages: string[] }) {
   return (
