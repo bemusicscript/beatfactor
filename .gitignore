@@ -1,2 +1,12 @@
 # yarn
 node_modules
+.yarn-error.log
+
+# Nestjs
+dist
+
+# Next.js
+.next
+
+# Sqlite
+db
