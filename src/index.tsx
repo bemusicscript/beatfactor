@@ -15,7 +15,7 @@ window.onload = () => {
 
 ReactDOM.render(
   <>
-    <Router>
+    <Router basename={process.env.NODE_ENV === "production" ? "/kbs" : ""}>
       <Header defaultDark={colorPreference} />
       <div className="content-placeholder">
         <Routes>
