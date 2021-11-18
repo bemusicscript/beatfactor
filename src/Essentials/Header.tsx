@@ -1,18 +1,13 @@
 import React from "react";
 import { Navbar } from "./Navbar";
 
-import "./Header.scss";
-
 interface HeaderProps {
-  isDefaultDark: boolean;
+  defaultDark: boolean;
 }
 
 interface HeaderState {
   isDark: boolean;
 }
-
-const ani_darkToLight = "dark-to-light";
-const ani_lightToDark = "dark-to-light 0.5s ease-in-out forwards";  
 
 export default class Header extends React.Component<HeaderProps, HeaderState> {
   private readonly onColorToggle = () => {
@@ -26,7 +21,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
   constructor(props: HeaderProps) {
     super(props);
     this.state = {
-      isDark: this.props.isDefaultDark
+      isDark: this.props.defaultDark
     };
   }
 

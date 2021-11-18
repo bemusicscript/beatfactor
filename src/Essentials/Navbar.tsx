@@ -1,14 +1,14 @@
 import React from "react";
-import "./Navbar.scss";
+import { Link } from "react-router-dom";
 
 export function Navbar({ pages }: { pages: string[] }) {
   return (
     <nav>
       {pages.map((page, index) => (
-        <div className={`navbox ${page}`} style={{ borderLeft: index ? "1px solid var(--color-text-secondary)" : "none" }}>
-          <a key={index} href={`#${page}`}>
+        <div key={index} className={`navbox ${page}`} style={{ borderLeft: index ? "1px solid var(--color-text-secondary)" : "none" }}>
+          <Link to={`${page === "Home" ? "/" : page}`}>
             {page}
-          </a>
+          </Link>
         </div>
       ))}
     </nav>

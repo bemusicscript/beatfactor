@@ -34,4 +34,8 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
     },
+    devServer: {
+        port: 8080,
+        historyApiFallback: { index: '/', disableDotRule: true },
+    }
 };

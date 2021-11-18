@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { Header, Footer } from "./Essentials";
-import { Home } from "./Pages";
+import { Home, Ranking } from "./Pages";
 
 import "./index.scss";
 
@@ -14,11 +15,16 @@ window.onload = () => {
 
 ReactDOM.render(
   <>
-    <Header isDefaultDark={colorPreference} />
-    <div className="content-placeholder">
-      <Home />
-    </div>
-    <Footer />
+    <Router>
+      <Header defaultDark={colorPreference} />
+      <div className="content-placeholder">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Ranking" element={<Ranking />} />
+        </Routes>
+      </div>
+      <Footer />
+    </Router>
   </>,
   document.getElementById("root")
 );
