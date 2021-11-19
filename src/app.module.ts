@@ -1,20 +1,16 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import Next from "next";
+import { RenderModule } from "nest-next";
 
-import { PlayersModule } from "./players/players.module";
-import { Player } from "./players/models/player.entity";
+import { APIModule } from "./api/api.module";
 
 @Module({
   imports: [
-    PlayersModule,
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db',
-      entities: [Player],
-      synchronize: true,
-    }),
-  ],
-  controllers: [],
+    APIModule,
+    RenderModule.forRootAsync(Next({ dev: process.env.NODE_ENV !== "production" })),
+    TypeOrmModule.forRoot(),
+  ]
 })
 
 export class AppModule { }

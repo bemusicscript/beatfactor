@@ -10,3 +10,7 @@ dist
 
 # Sqlite
 db
+ormconfig.json
+
+# private
+secrets
