@@ -8,8 +8,7 @@ dist
 # Next.js
 .next
 
-# Sqlite
-db
+# Mysql
 ormconfig.json
 
 # private
