@@ -1,8 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, JoinColumn } from "typeorm";
 
-import { PlayEvent } from "./playevent.entity";
-import { HandScore } from "./handscore.entity";
-import { User } from "./user.entity";
+import { PlayEvent, HandScore, User } from "./";
 
 @Entity()
 export class Playdata {

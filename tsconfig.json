@@ -37,7 +37,9 @@
     "./pages/**/*",
     "./src/**/*",
     "./ui/**/*",
-    "types.ts"
+    "types.ts", 
+    "dto", 
+    "interfaces"
   ],
   "exclude": [
     "node_modules"

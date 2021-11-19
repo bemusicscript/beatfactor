@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, JoinTable } from "typeorm";
-import { Playdata } from "./playdata.entity";
+import { Playdata } from "./";
 
 @Entity()
 export class PlayEvent {

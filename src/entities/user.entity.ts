@@ -1,6 +1,5 @@
 import { Entity, Column, OneToMany, PrimaryColumn, JoinColumn } from 'typeorm';
-import { Playdata } from './playdata.entity';
-import { Role } from './roles.entity';
+import { Playdata, Role } from './';
 
 @Entity()
 export class User {

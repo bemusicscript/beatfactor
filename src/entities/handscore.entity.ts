@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
-import { Playdata } from "./playdata.entity";
+import { Playdata } from "./";
 
 @Entity()
 export class HandScore {
