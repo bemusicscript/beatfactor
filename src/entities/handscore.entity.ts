@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
-import { Playdata } from "./";
+import { Playdata } from "./playdata.entity";
 
 @Entity()
 export class HandScore {
@@ -13,18 +13,6 @@ export class HandScore {
   @Column("varchar")
   type: string;
 
-  @Column("float")
-  avgScore: number;
-
-  @Column("float")
-  beforeCutScore: number;
-
-  @Column("float")
-  afterCutScore: number;
-
-  @Column("float")
-  accScore: number;
-
   @Column("int")
   badCut: number;
 
@@ -32,5 +20,11 @@ export class HandScore {
   miss: number;
 
   @Column("float")
-  handDistance: number;
+  handMovementDistance: number;
+
+  @Column("float")
+  saberMovementDistance: number;
+
+  @Column("simple-array")
+  combo: number[];
 }

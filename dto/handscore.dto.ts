@@ -1,20 +1,8 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsArray, IsNumber, IsString } from "class-validator";
 
 export class HandScoreDto {
   @IsString()
   type: string;
-
-  @IsNumber()
-  avgScore: number;
-
-  @IsNumber()
-  beforeCutScore: number;
-
-  @IsNumber()
-  afterCutScore: number;
-
-  @IsNumber()
-  accScore: number;
 
   @IsNumber()
   badCut: number;
@@ -23,5 +11,11 @@ export class HandScoreDto {
   miss: number;
 
   @IsNumber()
-  handDistance: number;
+  handMovementDistance: number;
+
+  @IsNumber()
+  saberMovementDistance: number;
+
+  @IsArray()
+  combo: number[];
 }

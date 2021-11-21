@@ -1,22 +1,19 @@
 import Next from "next";
-import { RenderModule } from "nest-next";
 import { Module } from "@nestjs/common";
+import { RenderModule } from "nest-next";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { ViewController } from "./view/view.controller";
-import { ViewService } from "./view/view.service";
-import { APIModule } from "./api/api.module";
-import { User } from "./entities";
+import { ViewModule } from "./view/view.module";
+import { PlaydataModule } from "./playdata/playdata.module";
+import { SongdataModule } from "./songdata/songdata.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
   imports: [
-    APIModule,
+    UserModule, PlaydataModule, SongdataModule, ViewModule,
     RenderModule.forRootAsync(Next({ dev: process.env.NODE_ENV !== "production" })),
-    TypeOrmModule.forRoot(),
-    TypeOrmModule.forFeature([User])
-  ],
-  controllers: [ViewController],
-  providers: [ViewService]
+    TypeOrmModule.forRoot()
+  ]
 })
 
 export class AppModule { }

@@ -1,23 +1,28 @@
 import { Type } from "class-transformer";
-import { IsArray, IsNumber, IsString, ValidateNested, ArrayMaxSize, ArrayMinSize } from "class-validator";
+import { IsArray, IsNumber, IsString, ValidateNested, ArrayMaxSize, ArrayMinSize, IsObject, IsDefined, IsNotEmptyObject } from "class-validator";
 
-import { PlayEventDto } from "./playevent.dto";
+import { PauseEventDto } from "./pauseevent.dto";
 import { HandScoreDto } from "./handscore.dto";
+import { SongdataDto } from "./songdata.dto";
 
 export class CreatePlaydataDto {
   @IsNumber()
-  score: number;
+  rawScore: number;
 
   @IsNumber()
-  accuracy: number;
+  modifiedScore: number;
 
-  @IsString()
-  mapHash: string;
+  @IsDefined()
+  @IsObject()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => SongdataDto)
+  songdata: SongdataDto;
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => PlayEventDto)
-  playEvents: PlayEventDto[];
+  @Type(() => PauseEventDto)
+  pauseEvents: PauseEventDto[];
   
   @IsArray()
   @ValidateNested({ each: true })

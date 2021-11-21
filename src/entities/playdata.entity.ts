@@ -1,27 +1,37 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, JoinColumn, Repository } from "typeorm";
 
-import { PlayEvent, HandScore, User } from "./";
+import { Userdata } from "./user.entity";
+import { Songdata } from "./songdata.entity";
+import { PauseEvent } from "./pauseevent.entity";
+import { HandScore } from "./handscore.entity";
 
 @Entity()
 export class Playdata {
   @PrimaryGeneratedColumn()
-  id?: number;
+  PlaydataID?: number;
 
-  @ManyToOne(type => User, user => user.playdata)
+  @ManyToOne(type => Userdata, user => user.playdata)
   @JoinColumn()
-  user: User;
+  user: Userdata;
+
+  @ManyToOne(type => Songdata, { cascade: true })
+  @JoinColumn()
+  songdata: Songdata;
 
   @Column("int")
-  score: number;
+  rawScore: number;
+
+  @Column("int")
+  modifiedScore: number;
 
   @Column("float")
   accuracy: number;
 
-  @Column("varchar")
-  mapHash: string;
+  @Column("float")
+  factorPoint: number;
 
-  @OneToMany(type => PlayEvent, playEvent => playEvent.playdata, { cascade: true })
-  playEvents: PlayEvent[];
+  @OneToMany(type => PauseEvent, pauseEvent => pauseEvent.playdata, { cascade: true })
+  pauseEvents: PauseEvent[];
 
   @OneToMany(type => HandScore, handScore => handScore.playdata, { cascade: true })
   handScores: HandScore[];
@@ -29,3 +39,5 @@ export class Playdata {
   @CreateDateColumn()
   createdAt?: Date;
 }
+
+export class PlaydataRepository extends Repository<Playdata> { }

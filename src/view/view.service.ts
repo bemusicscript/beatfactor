@@ -2,29 +2,31 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { User } from '../entities/user.entity';
+import { Userdata } from '../entities/user.entity';
 
 @Injectable()
 export class ViewService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(Userdata)
+    private readonly userRepository: Repository<Userdata>,
   ) {}
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<Userdata[]> {
     return await this.userRepository
       .createQueryBuilder('user')
       .orderBy('user.fp', 'DESC')
       .getMany();
   }
 
-  async findOneDetail(userID: number): Promise<User | undefined> {
+  async findOneDetail(userID: string): Promise<Userdata | undefined> {
     return await this.userRepository
       .createQueryBuilder('user')
-      .where('user.userID = :userID', { userID })
-      .innerJoinAndSelect('user.playdata', 'playdata')
-      .leftJoinAndSelect("playdata.playEvents", "playEvent")
+      .leftJoinAndSelect('user.playdata', 'playdata')
+      .innerJoinAndSelect('playdata.songdata', 'songdata')
+      .leftJoinAndSelect("playdata.pauseEvents", "pauseEvent")
       .leftJoinAndSelect("playdata.handScores", "handScore")
+      .orderBy('playdata.createdAt', 'DESC')
+      .where('user.userID = :userID', { userID })
       .getOne();
   }
 

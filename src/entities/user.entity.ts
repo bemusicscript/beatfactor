@@ -1,29 +1,29 @@
-import { Entity, Column, OneToMany, PrimaryColumn, JoinColumn } from 'typeorm';
-import { Playdata, Role } from './';
+import { Entity, Column, OneToMany, PrimaryColumn, JoinColumn, Repository } from 'typeorm';
+import { Role } from './role.entity';
+import { Playdata } from './playdata.entity';
 
 @Entity()
-export class User {
-  @PrimaryColumn()
+export class Userdata {
+  @PrimaryColumn('varchar')
   userID: string;
 
-  @Column()
+  @Column('varchar')
   name: string;
 
-  @Column()
+  @Column('float')
   fp: number;
 
-  @Column()
+  @Column('int')
   playCount: number;
 
-  @Column()
-  rank: number;
-
-  @Column()
-  avatar: string;
+  @Column('varchar', { nullable: true })
+  avatar?: string;
 
   @OneToMany(type => Role, Role => Role.user, { cascade: true })
   roles: Role[];
 
   @OneToMany(type => Playdata, playdata => playdata.user, { cascade: true })
-  playdata: Playdata[];
+  playdata?: Playdata[];
 }
+
+export class UserdataRepository extends Repository<Userdata> { }
