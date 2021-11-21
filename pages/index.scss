@@ -181,3 +181,80 @@ nav {
     border-top: 1px solid var(--color-bg-secondary);
   }
 }
+
+.user-info {
+  background-color: var(--color-bg);
+  min-width: 70vw;
+  max-width: 90vw;
+
+  padding: 2rem;
+  border-radius: 1vh;
+  box-shadow: 0px 0px 20px #000;
+
+  margin-bottom: 5vh;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .user-info-avatar {
+    margin-right: 3rem;
+  }
+}
+
+.user-playdata {
+  background-color: var(--color-bg);
+  min-width: 70vw;
+  max-width: 90vw;
+
+  padding: 2rem;
+  border-radius: 1vh;
+  box-shadow: 0px 0px 20px #000;
+
+  .playdata-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
+    .score-box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      h3 {
+        margin: 0 1rem;
+      }
+    }
+  }
+  
+  .playdata-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--color-bg-secondary);
+    
+    .song-info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .score-box-score {
+      display: flex;
+      flex-direction: column;
+
+      h4 {
+        margin: 0 1rem;
+        
+      }
+
+      p {
+        color: var(--color);
+        font-weight: bold;
+        margin: 0 1rem;
+      }
+    }
+  }
+}

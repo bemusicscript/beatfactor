@@ -1,14 +1,15 @@
 import React from "react";
 import { NextPage, NextPageContext } from "next";
+import Link from "next/link";
 
 interface PlayerInfo {
-  id: number;
-  fp: number;
+  userID: number;
   name: string;
+  fp: number;
   playCount: number;
-  rank: number;
   avatar: string;
   roles: string;
+  rank: number;
 }
 
 type RankingContext = NextPageContext & {
@@ -17,17 +18,17 @@ type RankingContext = NextPageContext & {
   };
 }
 
-const Player: React.FC<PlayerInfo> = ({ rank, fp, name, avatar }) => {
+const Player: React.FC<PlayerInfo> = ({ userID, rank, fp, name, avatar }) => {
   return (
     <div className="player-box">
       <div className="player-info">
         <img className="avatar" src={avatar} />
         <h3 className="rank">{`#${rank}`}</h3>
-        <h5 className="name">{name}</h5>
+        <Link href={`/user/${userID}`}>{name}</Link>
       </div>
       <div className="player-score">
         <div className="factor-point">
-          <p>{fp}</p>
+          <p>{`${fp.toFixed(2)}FP`}</p>
         </div>
         <div className="weekly-change">
           <p>{1}</p>
@@ -51,7 +52,7 @@ const Ranking: NextPage<{ players: PlayerInfo[] }> = ({ players }) => {
         </div>
       </div>
       {players && players.map((player, index) => {
-        return <Player {...player} key={index} />
+        return <Player {...player} rank={index + 1} key={index} />
       })}
     </div>
   )

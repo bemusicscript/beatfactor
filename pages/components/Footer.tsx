@@ -8,7 +8,7 @@ export default class Footer extends React.Component {
         <div className="who-made-this">
           {"KBS by "}<a href="https://github.com/SieR-VR">SieR</a>
         </div>
-        <Navbar pages={["Home", "About", "Ranking"]}/>
+        <Navbar pages={["home", "about", "ranking"]}/>
         <div className="privacy">
           {"Privacy Policy"}
         </div>

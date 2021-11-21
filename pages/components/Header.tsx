@@ -29,7 +29,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
     return (
       <header>
         <h1>{"KBS"}</h1>
-        <Navbar pages={["Home", "About", "Ranking"]}/>
+        <Navbar pages={["home", "about", "ranking"]}/>
         <div className="color-toggle-box" onClick={this.onColorToggle}>
           <button
             className="color-toggle"
