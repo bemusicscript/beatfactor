@@ -5,6 +5,12 @@ export class SongdataDto {
   mapHash: string;
 
   @IsString()
+  gameMode: string;
+
+  @IsString()
+  songDifficulty: string;
+
+  @IsString()
   songName: string;
 
   @IsString()
@@ -15,7 +21,7 @@ export class SongdataDto {
 
   @IsString()
   mapAuthor: string;
-
+  
   @IsNumber()
   maxPossibleScore: number;
 }
