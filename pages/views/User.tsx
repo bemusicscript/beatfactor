@@ -19,6 +19,8 @@ interface UserProps {
     factorPoint: number;
     songdata: {
       mapHash: string;
+      gameMode: string;
+      songDifficulty: string;
       songName: string;
       songSubName: string;
       songArtist: string;
@@ -42,6 +44,14 @@ interface UserProps {
   }[];
 }
 
+const DiffColors: { [key: string]: string } = {
+  Easy: "#00ff00",
+  Normal: "#ffff00",
+  Hard: "#ff0000",
+  Expert: "#0000ff",
+  ExpertPlus: "#ff00ff",
+}
+
 const User: NextPage<{ user: UserProps }> = ({ user }) => {
   return (
     <>
@@ -57,18 +67,30 @@ const User: NextPage<{ user: UserProps }> = ({ user }) => {
       </div>
       <div className="user-playdata">
         <div className="playdata-title">
-          <h3 className="map-title">Map Title</h3>
+          <h3 className="map-title">Title</h3>
           <h3 className="score-box-score">Score</h3>
         </div>
         {user.playdata.map((playdata, index) => (
           <div className="playdata-item" key={index}>
             <div className="song-info">
-              <h3>{`${playdata.songdata.songArtist} - ${playdata.songdata.songName}`}</h3>
-              {playdata.songdata.songSubName && <p>{`(${playdata.songdata.songSubName})`}</p>}
+              <p className="song-name">
+                {`${playdata.songdata.songArtist} - ${playdata.songdata.songName}`}
+              </p>
+              {playdata.songdata.songSubName && 
+                <p className="song-subname">
+                  {`${playdata.songdata.songSubName}`}
+                </p>
+              }
+              <p className="song-gamemode">
+                {playdata.songdata.gameMode}
+              </p>
+              <p className="song-difficulty" style={{color: DiffColors[playdata.songdata.songDifficulty]}} >
+                {`${playdata.songdata.songDifficulty}`}
+              </p>
             </div>
             <div className="score-box-score">
-              <h4>{`${playdata.rawScore} [${playdata.accuracy.toFixed(2)}%]`}</h4>
-              <p>{`(${playdata.factorPoint.toFixed(2)}FP)`}</p>
+              <p>{`Accuracy: ${playdata.accuracy.toFixed(2)}%`}</p>
+              <p className="factor-point">{`(${playdata.factorPoint.toFixed(2)}FP)`}</p>
             </div>
           </div>
         ))}
