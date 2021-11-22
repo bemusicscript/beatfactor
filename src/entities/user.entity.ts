@@ -25,5 +25,3 @@ export class Userdata {
   @OneToMany(type => Playdata, playdata => playdata.user, { cascade: true })
   playdata?: Playdata[];
 }
-
-export class UserdataRepository extends Repository<Userdata> { }

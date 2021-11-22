@@ -1,33 +1,20 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 
+import { UserdataService } from '../user/userdata.service';
 import { Userdata } from '../entities/user.entity';
 
 @Injectable()
 export class ViewService {
   constructor(
-    @InjectRepository(Userdata)
-    private readonly userRepository: Repository<Userdata>,
+    @Inject(forwardRef(() => UserdataService)) private readonly userdataService: UserdataService
   ) {}
 
   async findAll(): Promise<Userdata[]> {
-    return await this.userRepository
-      .createQueryBuilder('user')
-      .orderBy('user.fp', 'DESC')
-      .getMany();
+    return await this.userdataService.findAllDescFP();
   }
 
   async findOneDetail(userID: string): Promise<Userdata | undefined> {
-    return await this.userRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.playdata', 'playdata')
-      .innerJoinAndSelect('playdata.songdata', 'songdata')
-      .leftJoinAndSelect("playdata.pauseEvents", "pauseEvent")
-      .leftJoinAndSelect("playdata.handScores", "handScore")
-      .orderBy('playdata.createdAt', 'DESC')
-      .where('user.userID = :userID', { userID })
-      .getOne();
+    return await this.userdataService.findOneDetail(userID);
   }
 
   async getScoresaberLink(): Promise<string> {

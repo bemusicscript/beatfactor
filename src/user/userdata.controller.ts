@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Param } from "@nestjs/common";
 
-import { UserService } from "./user.service";
+import { UserdataService } from "./userdata.service";
 import { CreateUserDto } from "../../dto/create-user.dto";
 import { Userdata } from "../entities/user.entity";
 
 import type { Response } from "../../interfaces";
 
 @Controller("api/user")
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+export class UserdataController {
+  constructor(private readonly userService: UserdataService) {}
 
   @Post(':id')
   async create(@Param('id') userID: string, @Body() createUserDto: CreateUserDto): Promise<Response<Userdata>> {

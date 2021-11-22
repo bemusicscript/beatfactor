@@ -4,11 +4,10 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { SongdataController } from "./songdata.controller";
 import { SongdataService } from "./songdata.service";
 
-import { PlaydataModule } from "../playdata/playdata.module";
 import { Songdata } from "../entities/songdata.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Songdata]), PlaydataModule],
+  imports: [TypeOrmModule.forFeature([Songdata])],
   controllers: [SongdataController],
   providers: [SongdataService],
   exports: [SongdataService]

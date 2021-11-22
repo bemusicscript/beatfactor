@@ -9,7 +9,7 @@ import { CreateUserDto } from "dto/create-user.dto";
 import { CalculateFPSum } from "../secrets/calculator";
 
 @Injectable()
-export class UserService {
+export class UserdataService {
   constructor(
     @InjectRepository(Userdata) private readonly userRepository: Repository<Userdata>
   ) {}
@@ -31,11 +31,13 @@ export class UserService {
 
   async findOneDetail(userID: string): Promise<Userdata | undefined> {
     return await this.userRepository
-      .createQueryBuilder("User")
-      .where("User.userID = :userID", { userID })
-      .innerJoinAndSelect("User.playdata", "Playdata")
-      .leftJoinAndSelect("Playdata.pauseEvents", "PauseEvent")
-      .leftJoinAndSelect("Playdata.handScores", "HandScore")
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.playdata', 'playdata')
+      .innerJoinAndSelect('playdata.songdata', 'songdata')
+      .leftJoinAndSelect("playdata.pauseEvents", "pauseEvent")
+      .leftJoinAndSelect("playdata.handScores", "handScore")
+      .orderBy('playdata.createdAt', 'DESC')
+      .where('user.userID = :userID', { userID })
       .getOne();
   }
 

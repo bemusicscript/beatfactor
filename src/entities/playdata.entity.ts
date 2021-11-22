@@ -39,5 +39,3 @@ export class Playdata {
   @CreateDateColumn()
   createdAt?: Date;
 }
-
-export class PlaydataRepository extends Repository<Playdata> { }

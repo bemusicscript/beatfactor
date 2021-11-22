@@ -1,9 +1,15 @@
-import { Entity, Column, PrimaryColumn, Repository } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Songdata {
   @PrimaryColumn()
   mapHash: string;
+
+  @PrimaryColumn()
+  gameMode: string;
+
+  @PrimaryColumn()
+  songDifficulty: string;
 
   @Column()
   songName: string;
@@ -23,5 +29,3 @@ export class Songdata {
   @Column('float', { default: 0 })
   factor?: number;
 }
-
-export class SongdataRepository extends Repository<Songdata> { }

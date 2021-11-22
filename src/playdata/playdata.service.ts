@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 import { SongdataService } from "../songdata/songdata.service";
-import { UserService } from "../user/user.service";
+import { UserdataService } from "../user/userdata.service";
 
 import { CreatePlaydataDto } from "../../dto/create-playdata.dto";
 import { Playdata } from "../entities/playdata.entity";
@@ -14,15 +14,20 @@ import { CalculateFactor } from "../secrets/calculator";
 export class PlaydataService {
   constructor(
     @InjectRepository(Playdata) private readonly playdataRepository: Repository<Playdata>,
-    private readonly songdataService: SongdataService,
-    private readonly userService: UserService
+    @Inject(forwardRef(() => SongdataService)) private readonly songdataService: SongdataService,
+    @Inject(forwardRef(() => UserdataService)) private readonly userdataService: UserdataService
   ) { }
 
   async create(userID: string, createPlaydataDto: CreatePlaydataDto): Promise<Playdata | undefined> {
-    const user = await this.userService.findOne(userID);
+    const user = await this.userdataService.findOne(userID);
     if (!user) return undefined;
 
-    const songdata = await this.songdataService.save(createPlaydataDto.songdata);
+    let songdata = await this.songdataService.findOne(createPlaydataDto.songdata);
+    if (!songdata) {
+      songdata = await this.songdataService.save(createPlaydataDto.songdata);
+      songdata.factor = 0;
+    }
+
     const accuracy = createPlaydataDto.rawScore / songdata.maxPossibleScore! * 100;
     const factorPoint = CalculateFactor(songdata.factor!, accuracy);
 
@@ -30,7 +35,7 @@ export class PlaydataService {
     const playdataResult = await this.playdataRepository.save(playdata);
 
     if (factorPoint > 0)
-      if (!(await this.userService.updateFP(user, songdata))) 
+      if (!(await this.userdataService.updateFP(user, songdata))) 
         return undefined;
 
     return playdataResult;
@@ -44,7 +49,7 @@ export class PlaydataService {
     const updated = await this.playdataRepository.save(playdatas);
     if (!updated) return undefined;
 
-    const flag = this.userService.UpdateWholeUserFP();
+    const flag = this.userdataService.UpdateWholeUserFP();
     if (!flag) return undefined;
     
     return updated;

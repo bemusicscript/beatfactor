@@ -10,10 +10,10 @@ import type { Response } from "../../interfaces";
 export class SongdataController {
   constructor(private readonly songdataService: SongdataService) {}
 
-  @Post(':hash')
+  @Post("updatefp")
   @UseFilters(new AllExceptionsFilter())
-  async create(@Param('hash') hash: string, @Body() updateFactorDto: UpdateFactorDto): Promise<Response<undefined>> {
-    const factorUpdated = await this.songdataService.UpdateFactor(hash, updateFactorDto);
+  async create(@Body() updateFactorDto: UpdateFactorDto): Promise<Response<undefined>> {
+    const factorUpdated = await this.songdataService.UpdateFactor(updateFactorDto);
     return {
       responseCode: factorUpdated ? 200 : 400,
       responseMessage: factorUpdated ? "Factor Updated" : "Bad request"
