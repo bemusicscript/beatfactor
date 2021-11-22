@@ -9,7 +9,9 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>KBS</title>
+        <title>BeatFactor</title>
+        <link rel="icon" href="/static/favicon.ico" />
+        <link rel="shortcut icon" href="/static/favicon.ico" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
       </Head>

@@ -28,14 +28,15 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
     return (
       <header>
-        <h1>{"KBS"}</h1>
+        <div className="title-box">
+          <img src="/static/BeatFactor-Logo.png"/>
+          <h1>{"BeatFactor"}</h1>
+        </div>
         <Navbar pages={["home", "about", "ranking"]}/>
         <div className="color-toggle-box" onClick={this.onColorToggle}>
           <button
             className="color-toggle"
-            style={{ 
-              animation: `${ this.state.isDark ? "dark-to-light" : "light-to-dark" } 0.5s ease-in-out forwards` 
-            }}
+            style={{ animation: `${ this.state.isDark ? "dark-to-light" : "light-to-dark" } 0.5s ease-in-out forwards` }}
           />
         </div>
       </header>        

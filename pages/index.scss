@@ -39,6 +39,19 @@ header {
   justify-content: space-between;
   align-items: center;
 
+  .title-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 1rem;
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+
   .nav-bar {
     margin: 0;
     div {

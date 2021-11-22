@@ -6,7 +6,7 @@ export default class Footer extends React.Component {
     return (
       <footer>
         <div className="who-made-this">
-          {"KBS by "}<a href="https://github.com/SieR-VR">SieR</a>
+          {"BeatFactor by "}<a href="https://github.com/SieR-VR">SieR</a>
         </div>
         <Navbar pages={["home", "about", "ranking"]}/>
         <div className="privacy">
