@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, JoinColumn, Repository } from "typeorm";
+import { Entity, Column, PrimaryColumn, OneToMany, ManyToOne, CreateDateColumn, JoinColumn } from "typeorm";
 
 import { Userdata } from "./user.entity";
 import { Songdata } from "./songdata.entity";
@@ -7,8 +7,17 @@ import { HandScore } from "./handscore.entity";
 
 @Entity()
 export class Playdata {
-  @PrimaryGeneratedColumn()
-  PlaydataID?: number;
+  @PrimaryColumn('varchar', { length: 36 })
+  userID: string;
+
+  @PrimaryColumn('varchar', { length: 40 })
+  mapHash: string;
+
+  @PrimaryColumn('varchar', { length: 20 })
+  gameMode: string;
+
+  @PrimaryColumn('varchar', { length: 20 })
+  songDifficulty: string;
 
   @ManyToOne(type => Userdata, user => user.playdata)
   @JoinColumn()

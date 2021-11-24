@@ -27,7 +27,6 @@ export class ViewController {
   @Render("User")
   async user(@Param('id') id: string): Promise<{ user: Userdata | undefined }> {
     const res = await this.viewService.findOneDetail(id);
-    console.log(res);
     return { user: res };
   }
 }

@@ -4,6 +4,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationException } from './all-exceptions.filter';
 
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+
 import * as fs from 'fs';
 
 async function bootstrap() {
@@ -26,6 +28,7 @@ async function bootstrap() {
       return new ValidationException(messages);
     },
   }));
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
 
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);

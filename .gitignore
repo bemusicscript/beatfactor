@@ -13,3 +13,6 @@ ormconfig.json
 
 # private
 secrets
+
+# logs
+logs

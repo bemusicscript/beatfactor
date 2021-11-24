@@ -31,7 +31,21 @@ export class PlaydataService {
     const accuracy = createPlaydataDto.rawScore / songdata.maxPossibleScore! * 100;
     const factorPoint = CalculateFactor(songdata.factor!, accuracy);
 
-    const playdata: Playdata = { ...createPlaydataDto, user, accuracy, factorPoint };
+    const prePlaydata = await this.playdataRepository.findOne({ userID, ...createPlaydataDto.songdata });
+    if (prePlaydata) {
+      if (prePlaydata.accuracy > accuracy) {
+        return { ...prePlaydata }
+      }
+    }
+
+    const playdata: Playdata = {
+      userID,
+      ...createPlaydataDto, 
+      user, 
+      accuracy, 
+      factorPoint,
+      ...songdata
+    };
     const playdataResult = await this.playdataRepository.save(playdata);
 
     if (factorPoint > 0)
