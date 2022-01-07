@@ -25,6 +25,11 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
     };
   }
 
+  componentDidMount() {
+    const body = document.querySelector("body");
+    body && this.state.isDark && body.classList.add("dark-mode");
+  }
+
   render() {
     return (
       <header>

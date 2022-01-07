@@ -7,11 +7,11 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = (props: HomeProps) => {
   return (
-    <div className="welcome-to-kbs">
-      <h2 className="hello">{"안녕하세요!"}</h2>
-      <p className="description">{"KBS는 Korea-Beatsaber의 약자로, "}
+    <div className="welcome-to-beatfactor">
+      <h2 className="hello">{"Hello!"}</h2>
+      <p className="description">{"BeatFactor is simillar with "}
         <a href={props.scoresaberLink}>ScoreSaber</a>
-        {"와 비슷한 한국인들을 위한 서비스입니다."}
+        {", for BeatSaber custom maps."}
       </p>
     </div>
   )

@@ -19,40 +19,51 @@ export class PlaydataService {
   ) { }
 
   async create(userID: string, createPlaydataDto: CreatePlaydataDto): Promise<Playdata | undefined> {
-    const user = await this.userdataService.findOne(userID);
-    if (!user) return undefined;
+    try {
+      const user = await this.userdataService.findOne(userID);
+      if (!user) return undefined;
 
-    let songdata = await this.songdataService.findOne(createPlaydataDto.songdata);
-    if (!songdata) {
-      songdata = await this.songdataService.save(createPlaydataDto.songdata);
-      songdata.factor = 0;
-    }
-
-    const accuracy = createPlaydataDto.rawScore / songdata.maxPossibleScore! * 100;
-    const factorPoint = CalculateFactor(songdata.factor!, accuracy);
-
-    const prePlaydata = await this.playdataRepository.findOne({ userID, ...createPlaydataDto.songdata });
-    if (prePlaydata) {
-      if (prePlaydata.accuracy > accuracy) {
-        return { ...prePlaydata }
+      let songdata = await this.songdataService.findOne(createPlaydataDto.songdata);
+      if (!songdata) {
+        songdata = await this.songdataService.save(createPlaydataDto.songdata);
+        songdata.factor = 0;
       }
+
+      const accuracy = createPlaydataDto.rawScore / songdata.maxPossibleScore! * 100;
+      const factorPoint = CalculateFactor(songdata.factor!, accuracy);
+
+      const prePlaydata = await this.playdataRepository.findOne({ 
+        userID, 
+        mapHash: createPlaydataDto.songdata.mapHash,
+        gameMode: createPlaydataDto.songdata.gameMode,
+        songDifficulty: createPlaydataDto.songdata.songDifficulty
+      });
+      if (prePlaydata) {
+        if (prePlaydata.accuracy > accuracy) {
+          return { ...prePlaydata }
+        }
+      }
+
+      const playdata: Playdata = {
+        userID,
+        ...createPlaydataDto,
+        user,
+        accuracy,
+        factorPoint,
+        ...songdata
+      };
+      const playdataResult = await this.playdataRepository.save(playdata);
+
+      if (factorPoint > 0)
+        if (!(await this.userdataService.updateFP(user, songdata)))
+          return undefined;
+
+      return playdataResult;
+
+    } catch (error) {
+      console.log(error);
+      return undefined;
     }
-
-    const playdata: Playdata = {
-      userID,
-      ...createPlaydataDto, 
-      user, 
-      accuracy, 
-      factorPoint,
-      ...songdata
-    };
-    const playdataResult = await this.playdataRepository.save(playdata);
-
-    if (factorPoint > 0)
-      if (!(await this.userdataService.updateFP(user, songdata))) 
-        return undefined;
-
-    return playdataResult;
   }
 
   async UpdateFactorBySongdata(songdata: Songdata): Promise<Playdata[] | undefined> {
@@ -65,7 +76,7 @@ export class PlaydataService {
 
     const flag = this.userdataService.UpdateWholeUserFP();
     if (!flag) return undefined;
-    
+
     return updated;
   }
 }

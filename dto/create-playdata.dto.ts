@@ -4,6 +4,8 @@ import { IsArray, IsNumber, IsString, ValidateNested, ArrayMaxSize, ArrayMinSize
 import { PauseEventDto } from "./pauseevent.dto";
 import { HandScoreDto } from "./handscore.dto";
 import { SongdataDto } from "./songdata.dto";
+import { PlayerSpecificSettingsDto } from "./player-specific-settings.dto";
+import { GameplayModifiersDto } from "./gameplay-modifiers.dto";
 
 export class CreatePlaydataDto {
   @IsNumber()
@@ -30,4 +32,18 @@ export class CreatePlaydataDto {
   @ArrayMaxSize(3)
   @Type(() => HandScoreDto)
   handScores: HandScoreDto[];
+
+  @IsDefined()
+  @IsObject()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => GameplayModifiersDto)
+  gameplayModifiers: GameplayModifiersDto;
+
+  @IsDefined()
+  @IsObject()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => PlayerSpecificSettingsDto)
+  playerSpecificSettings: PlayerSpecificSettingsDto;
 }
